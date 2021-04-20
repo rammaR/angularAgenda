@@ -1,0 +1,8 @@
+{
+  "name": "book",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "a63d37d8"
+}
