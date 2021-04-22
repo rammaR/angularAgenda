@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 
@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user';
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
   styleUrls: ['./user-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserCardComponent implements OnInit {
 
