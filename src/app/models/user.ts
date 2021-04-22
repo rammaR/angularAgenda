@@ -3,7 +3,7 @@ export interface User {
     email: string,
     secondEmail?: string,
     added: string,
-    avatar?: string,
+    avatar?: any,
     role?: string,
     department?: string
 }

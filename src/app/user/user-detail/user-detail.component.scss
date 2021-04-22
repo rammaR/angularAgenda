@@ -1,11 +1,23 @@
 .content {
-    margin: 10vh 20vw;
+    background-color: var(--ion-color-primary);
 }
 
-ion-avatar{
+.avatar {
+    display       : flex;
+    flex-direction: row;
+    align-items   : flex-end;
+
+    &__input {
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__small {
+        color: var(--ion-color-medium-light);
+    }
+}
+
+ion-avatar {
     cursor: pointer;
-}
-
-.input-hidden{
-    display: none;
 }

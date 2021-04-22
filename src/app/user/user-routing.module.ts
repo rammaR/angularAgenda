@@ -8,10 +8,6 @@ const routes: Routes = [
   {
     path: '',
     component: UserPage
-  },
-  {
-    path: 'insert',
-    component: UserDetailComponent
   }
 ];
 
@@ -19,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserPageRoutingModule {}
+export class UserPageRoutingModule { }

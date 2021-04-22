@@ -14,16 +14,15 @@
     </ion-fab-button>
     <ion-fab-list side="bottom">
       <ion-fab-button>
-        <ion-icon name="logo-vimeo"></ion-icon>
+        <a href="https://www.linkedin.com/in/ramar-nunes-faleiro-dos-santos-18243745/" title="link to my linkedin"
+          target="_blank">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </a>
       </ion-fab-button>
       <ion-fab-button>
-        <ion-icon name="logo-facebook"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button>
-        <ion-icon name="logo-instagram"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button>
-        <ion-icon name="logo-twitter"></ion-icon>
+        <a href="https://github.com/rammaR?tab=repositories" title="link to my github" target="_blank">
+          <ion-icon name="logo-github"></ion-icon>
+        </a>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
@@ -31,6 +30,7 @@
   <div class="content">
     <ion-button (click)="add()">Adicionar Usuário</ion-button>
     <ion-searchbar [(ngModel)]="filter" showCancelButton="focus" debounce="500" (ionChange)="search()"></ion-searchbar>
-    <app-user-card *ngFor="let u of getListFiltered()" [user]="u" (onDelete)="delete($event)"></app-user-card>
+    <app-user-card *ngFor="let u of getListFiltered()" [user]="u" (onDelete)="delete($event)" (onView)="view($event)">
+    </app-user-card>
   </div>
 </ion-content>

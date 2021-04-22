@@ -9,14 +9,19 @@
     <ion-card-content>
       <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-        <input type='file' (change)="uploadFile($event)" #uploader class="input-hidden">
-        <ion-avatar (click)="uploader.click()">
-          <img [src]="url?url:urlPlaceholder" alt="seu avatar">
-        </ion-avatar>
+        <div class="avatar">
+          <input type='file' (change)="uploadFile($event)" #uploader class="avatar__input--hidden">
+          
+          <ion-avatar (click)="uploader.click()">
+            <img accept="image/*" [src]="url" alt="seu avatar">
+          </ion-avatar>
+
+          <small class="avatar__small">click on this pictures to change your avatar</small>
+        </div>
 
         <app-my-input label="Name" controlName="name" [form]="form"></app-my-input>
-        <app-my-input label="Email" controlName="email" [form]="form"></app-my-input>
-        <app-my-input label="Second Email" controlName="secondemail" [form]="form"></app-my-input>
+        <app-my-input label="Email" controlName="email" [form]="form" type="email"></app-my-input>
+        <app-my-input label="Second Email" controlName="secondemail" [form]="form" type="email"></app-my-input>
         <app-my-select label="Department" controlName="department" [list]="departments" [form]="form"></app-my-select>
         <app-my-input label="Role" controlName="role" [form]="form"></app-my-input>
 

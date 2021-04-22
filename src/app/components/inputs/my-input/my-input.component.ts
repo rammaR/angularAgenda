@@ -9,8 +9,8 @@ import { MyAbstractComponent } from '../my-abstract/my-abstract.component';
 })
 export class MyInputComponent extends MyAbstractComponent {
 
-  constructor(private validator: InputvalidatorService) {
-    super();
+  constructor(protected validator: InputvalidatorService) {
+    super(validator);
   }
 
 }

@@ -3,10 +3,14 @@
     {{label}}:
   </ion-label>
 
-  <ion-input [formControlName]="controlName"></ion-input>
+  <ion-input [type]="type" [formControlName]="controlName"></ion-input>
 
   <div *ngIf="validator.hasErrorValidar(control, 'required')" class="alert alert-danger">
     {{label}} is required.
+  </div>
+
+  <div *ngIf="validator.hasErrorValidar(control, 'pattern')" class="alert alert-danger">
+    {{label}} it's not adjusted to the format.
   </div>
 
   <div *ngIf="validator.hasErrorValidar(control, 'minlength')" class="alert alert-danger">

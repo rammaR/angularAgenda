@@ -11,6 +11,7 @@ export class UserCardComponent implements OnInit {
 
   @Input() user: User;
   @Output() onDelete: EventEmitter<User> = new EventEmitter();
+  @Output() onView: EventEmitter<User> = new EventEmitter();
 
   constructor(private alertController: AlertController) { }
 
@@ -24,6 +25,10 @@ export class UserCardComponent implements OnInit {
         this.onDelete.emit(this.user);
       }
     })
+  }
+
+  view() {
+    this.onView.emit(this.user);
   }
 
   async presentAlert() {

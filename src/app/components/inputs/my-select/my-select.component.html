@@ -1,9 +1,15 @@
-<ion-item>
-  <ion-label>{{label}}</ion-label>
+<ion-item [formGroup]="form">
+  <ion-label>
+    {{label}}
+  </ion-label>
 
-  <ion-select [placeholder]="placeholder">
+  <ion-select [placeholder]="placeholder" [formControlName]="controlName">
     <ion-select-option *ngFor="let d of list" [value]="d">
       {{d}}
     </ion-select-option>
   </ion-select>
+
+  <div *ngIf="validator.hasErrorValidar(control, 'required')" class="alert alert-danger">
+    {{label}} is required.
+  </div>
 </ion-item>

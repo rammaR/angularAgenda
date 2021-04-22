@@ -14,8 +14,8 @@ export class UserService {
       added: Date(),
       email: 'ggustavorodrigocauadrumond@camarasjc.sp.gov.br',
       name: 'Gustavo Rodrigo Cauã Drumond',
-      avatar: '',
-      department: 'TI',
+      avatar: '/assets/img/user1.png',
+      department: 'IT',
       role: 'programador',
       secondEmail: ''
     },
@@ -23,11 +23,24 @@ export class UserService {
       added: Date(),
       email: 'ooliverotavioporto@iblojas.com.br',
       name: 'Oliver Otávio Porto',
-      avatar: '',
-      department: 'RH',
+      avatar: "/assets/img/user2.png",
+      department: 'Human Resourcers',
       role: 'estagiário',
       secondEmail: 'ooliverotavioporto@gmail.com'
     }]);
+  }
+
+  add(user: User) {
+    this.usuarios.value.push(user);
+    console.log("Nova lista", this.usuarios.value)
+  }
+
+  put(user: User) {
+    let index = this.usuarios.value.findIndex((v: User) => {
+      return v.email === user.email
+    })
+    //console.log("index founded", index);
+    this.usuarios.value[index] = user;
   }
 
   get(): Observable<User[]> {

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
+import { ModalController } from '@ionic/angular';
+import { User, __CreateUser } from '../models/user';
 import { UserService } from '../services/user.service';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @Component({
   selector: 'app-user',
@@ -15,7 +17,7 @@ export class UserPage implements OnInit {
 
   constructor(
     private service: UserService,
-    private router: Router) { }
+    private modalController: ModalController) { }
 
   ngOnInit() {
     this.getList();
@@ -46,7 +48,23 @@ export class UserPage implements OnInit {
     this.service.delete(u);
   }
 
+  view(u: User) {
+    this.presentModal(u);
+  }
+
   add() {
-    this.router.navigate(['insert']);
+    this.presentModal();
+  }
+
+  async presentModal(u?: User) {
+    const modal = await this.modalController.create({
+      component: UserDetailComponent,
+      cssClass: 'my-custom-modal',
+      componentProps: {
+        'user': u ? u : __CreateUser()
+      }
+    });
+
+    await modal.present();
   }
 }

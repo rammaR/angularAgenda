@@ -1,7 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController, ToastController } from '@ionic/angular';
+import { Patterns } from 'src/app/models/pattern';
 import { User, __CreateUser } from 'src/app/models/user';
 import { DepartmentsService } from 'src/app/services/departments.service';
 import { UserService } from 'src/app/services/user.service';
@@ -13,25 +15,29 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserDetailComponent implements OnInit {
 
+  @Input() user: User;
   form: FormGroup;
-  user: User;
   departments: String[];
   url: SafeResourceUrl;
-  @ViewChild("#filer") filer: ElementRef;
+  onEdit: boolean;
   readonly urlPlaceholder: string = "../../../assets/img/avatarPlace.png";
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private service: UserService,
-    private active: ActivatedRoute,
     private serviceDeparment: DepartmentsService,
-    private sanitize: DomSanitizer
+    private sanitize: DomSanitizer,
+    private toastController: ToastController,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
-    this.getParam();
     this.getDepartments();
+    this.setForm();
+
+    this.onEdit = (this.user?.email && this.user?.email.length > 0) ? true : false;
+
+    this.url = this.user.avatar ? this.user.avatar: this.urlPlaceholder;
   }
 
   private setForm() {
@@ -41,34 +47,39 @@ export class UserDetailComponent implements OnInit {
 
     this.form = this.fb.group({
       name: [this.user.name, [Validators.required, Validators.minLength(4)]],
-      email: [this.user.email, [Validators.required]],
+      email: [this.user.email, [Validators.required, Validators.pattern(Patterns.EMAIL)]],
       department: [this.user.department],
       role: [this.user.role],
-      secondemail: [this.user.secondEmail]
+      secondemail: [this.user.secondEmail, [Validators.pattern(Patterns.EMAIL)]]
     });
   }
 
-  private getParam() {
-    let email = this.active.snapshot.params['email'];
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
 
-    if (email) {
-      this.user = this.service.getItem(email);
-      if (!this.user) {
-        this.router.navigate(['user'])
-      }
-    } else {
-      this.user = __CreateUser();
-    }
-
-    this.setForm();
+    toast.present();
   }
 
   onSubmit() {
+    this.user = this.form.value as User;
+
     if (!this.user.added) {
       this.user.added = Date();
     }
-    // TODO: Use EventEmitter with form value
-    console.warn(this.form.value);
+
+    this.user.avatar = this.url;
+
+    if (this.onEdit) {
+      this.service.put(this.user);
+    } else {
+      this.service.add(this.user);
+    }
+
+    this.presentToast('novo usuário salvo!');
+    this.dismiss();
   }
 
   private getDepartments() {
@@ -77,10 +88,31 @@ export class UserDetailComponent implements OnInit {
 
   uploadFile($event) {
     var objectURL = window.URL.createObjectURL($event.target.files[0]); // outputs the first file
+    //console.log($event.target.files[0]);
     this.url = this.sanitize.bypassSecurityTrustResourceUrl(objectURL);
   }
 
-  cancel(){
-    this.router.navigate([''])
+  cancel() {
+    this.dismiss();
   }
+
+  dismiss() {
+    this.modalController.dismiss({});
+  }
+
+  /*private getParam() {
+    let email = this.active.snapshot.params['email'];
+
+    if (email) {
+      this.user = this.service.getItem(email);
+      if (!this.user) {
+        this.presentToast("Não existe usuário com este email");
+        this.dismiss();
+      }
+    } else {
+      this.user = __CreateUser();
+    }
+
+    this.setForm();
+  }*/
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { InputvalidatorService } from 'src/app/services/inputvalidator.service';
 import { MyAbstractComponent } from '../my-abstract/my-abstract.component';
 
 @Component({
@@ -9,12 +10,15 @@ import { MyAbstractComponent } from '../my-abstract/my-abstract.component';
 export class MySelectComponent extends MyAbstractComponent {
 
   @Input() placeholder: string = 'Select one';
-  @Input() list: any[] = [];
+  @Input() list: string[] = [];
 
-  constructor() {
-    super();
+  constructor(protected validator: InputvalidatorService) {
+    super(validator);
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    super.ngOnInit();
+    //console.log("Control Name", this.control.value, "List", this.list)
+  }
 
 }
