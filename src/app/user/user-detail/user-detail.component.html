@@ -1,0 +1,28 @@
+<div class="content">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Card Title
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <input type='file' (change)="uploadFile($event)" #uploader class="input-hidden">
+        <ion-avatar (click)="uploader.click()">
+          <img [src]="url?url:urlPlaceholder" alt="seu avatar">
+        </ion-avatar>
+
+        <app-my-input label="Name" controlName="name" [form]="form"></app-my-input>
+        <app-my-input label="Email" controlName="email" [form]="form"></app-my-input>
+        <app-my-input label="Second Email" controlName="secondemail" [form]="form"></app-my-input>
+        <app-my-select label="Department" controlName="department" [list]="departments" [form]="form"></app-my-select>
+        <app-my-input label="Role" controlName="role" [form]="form"></app-my-input>
+
+        <ion-button color="secondary" type="submit" [disabled]="!form.valid">Submit</ion-button>
+        <ion-button color="danger" type="button" (click)="cancel()">Cancel</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</div>

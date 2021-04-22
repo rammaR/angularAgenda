@@ -1,23 +1,38 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { IonicModule } from '@ionic/angular';
 import { AppComponent } from './app.component';
 
-describe('AppComponent', () => {
+describe('App Component Test', () => {
 
-  beforeEach(waitForAsync(() => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
 
-    TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule
+        ],
+        declarations: [
+          AppComponent
+        ],
+        providers: [],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      }).compileComponents()
+    })
+  )
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  });
-  // TODO: add more tests!
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  })
 
-});
+  it('should created', () => {
+    expect(component).toBeTruthy();
+  })
+
+})

@@ -1,0 +1,9 @@
+<ion-item>
+  <ion-label>{{label}}</ion-label>
+
+  <ion-select [placeholder]="placeholder">
+    <ion-select-option *ngFor="let d of list" [value]="d">
+      {{d}}
+    </ion-select-option>
+  </ion-select>
+</ion-item>

@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <ion-title>
+      Usuários
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="share"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button>
+        <ion-icon name="logo-vimeo"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="logo-instagram"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="logo-twitter"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <div class="content">
+    <ion-button (click)="add()">Adicionar Usuário</ion-button>
+    <ion-searchbar [(ngModel)]="filter" showCancelButton="focus" debounce="500" (ionChange)="search()"></ion-searchbar>
+    <app-user-card *ngFor="let u of getListFiltered()" [user]="u" (onDelete)="delete($event)"></app-user-card>
+  </div>
+</ion-content>
